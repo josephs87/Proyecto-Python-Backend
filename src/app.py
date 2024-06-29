@@ -21,7 +21,7 @@ app = Flask(__name__, template_folder = template_dir)
 @app.route('/')
 def home():
     cursor = db.database.cursor()
-    cursor.execute("SELECT * FROM users")
+    cursor.execute("SELECT * FROM afiliados")
     myresult = cursor.fetchall()
     #Convertir los datos a diccionario
     inserObject = []
@@ -34,14 +34,18 @@ def home():
 
 @app.route('/user', methods=['POST'])
 def addUser():
-    username = request.form['username']
-    name = request.form['name']
-    password = request.form['password']
+    tipo = request.form['tipo']
+    nombre = request.form['nombre']
+    vencimientoFactura = request.form['vencimientoFactura']
+    afiliado = request.form['afiliado']
+    numeroAfiliado = request.form['numeroAfiliado']
+    plan = request.form['plan']
 
-    if username and name and password:
+
+    if tipo and nombre and vencimientoFactura and afiliado and numeroAfiliado and plan:
         cursor = db.database.cursor()
-        sql= "INSERT INTO users (username, name, password) VALUES (%s, %s, %s)"
-        data = (username, name, password)
+        sql= "INSERT INTO afiliados (tipo, nombre, vencimientoFactura, afiliado, numeroAfiliado, plan) VALUES (%s, %s, %s, %s, %s, %s)"
+        data = (tipo, nombre, vencimientoFactura, afiliado, numeroAfiliado, plan)
         cursor.execute(sql, data)
         db.database.commit()
     return redirect(url_for('home'))
@@ -49,7 +53,7 @@ def addUser():
 @app.route('/eliminar/<string:id>')
 def eliminar(id):
     cursor = db.database.cursor()
-    sql = "DELETE FROM users WHERE id=%s"
+    sql = "DELETE FROM afiliados WHERE id=%s"
     data =(id,)
     cursor.execute(sql, data)
     db.database.commit()
@@ -58,14 +62,17 @@ def eliminar(id):
 
 @app.route('/editar/<string:id>', methods=['POST'])
 def editar(id):
-    username = request.form['username']
-    name = request.form['name']
-    password = request.form['password']
+    tipo = request.form['tipo']
+    nombre = request.form['nombre']
+    vencimientoFactura = request.form['vencimientoFactura']
+    afiliado = request.form['afiliado']
+    numeroAfiliado = request.form['numeroAfiliado']
+    plan = request.form['plan']
 
-    if username and name and password:
+    if tipo and nombre and vencimientoFactura and afiliado and numeroAfiliado and plan:
         cursor = db.database.cursor()
-        sql= "UPDATE users SET username = %s, name = %s, password = %s WHERE id = %s"
-        data = (username, name, password, id)
+        sql= "UPDATE afiliados SET tipo =%s, nombre = %s, vencimientoFactura = %s, afiliado = %s, numeroAfiliado = %s, plan =%s WHERE id = %s"
+        data = (tipo, nombre, vencimientoFactura, afiliado, numeroAfiliado, plan, id)
         cursor.execute(sql, data)
         db.database.commit()
     return redirect(url_for('home'))

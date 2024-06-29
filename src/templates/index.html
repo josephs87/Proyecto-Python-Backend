@@ -14,26 +14,38 @@
 </head>
 
 <body>
-    <h1 class="text-center mt-5 mb-5 text-primary">Proyecto Python</h1>
+    <h1 class="text-center mt-5 mb-5 text-primary">Registro de Afiliados</h1>
     <div class="container">
         <div class="card shadow">
             <div class="card-body">
                 <form action="/user" method="POST">
                     <div class="row mb-3">
                         <div class="col">
-                            <label>Usuario</label>
-                            <input type="text" class="form-control mb-3" name="username">
+                            <label>Tipo</label>
+                            <input type="text" class="form-control mb-3" name="tipo">
                         </div>
                         <div class="col">
                             <label>Nombre</label>
-                            <input type="text" class="form-control mb-3" name="name">
+                            <input type="text" class="form-control mb-3" name="nombre">
                         </div>
                         <div class="col">
-                            <label>Clave</label>
-                            <input type="text" class="form-control mb-3" name="password">
+                            <label>Vto Fact.</label>
+                            <input type="text" class="form-control mb-3" name="vencimientoFactura">
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary mb-3 mt-4" type="submit">Guardar</button>
+                            <label>Socio</label>
+                            <input type="text" class="form-control mb-3" name="afiliado">
+                        </div>
+                        <div class="col">
+                            <label>N° Afiliado</label>
+                            <input type="text" class="form-control mb-3" name="numeroAfiliado">
+                        </div>
+                        <div class="col">
+                            <label>Plan</label>
+                            <input type="text" class="form-control mb-3" name="plan">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-secondary mb-3 mt-4" type="submit">Guardar</button>
                         </div>
                     </div>
                 </form>
@@ -42,10 +54,13 @@
 
                 <table class="table table-bordered">
                     <thead>
-                        <th scope="col">#</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Clave</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Razón Social</th>
+                        <th scope="col">Vto Fact.</th>
+                        <th scope="col">Socio</th>
+                        <th scope="col">N° Afiliado</th>
+                        <th scope="col">Plan</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Eliminar</th>
                     </thead>
@@ -55,10 +70,13 @@
                         {% for d in data %}
                         <tr>
                             <td>{{d.id}}</td>
-                            <td>{{d.username}}</td>
-                            <td>{{d.name}}</td>
-                            <td>{{d.password}}</td>
-                            <td><button class="btn btn-primary btn-sm" id="btn-editar{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
+                            <td>{{d.tipo}}</td>
+                            <td>{{d.nombre}}</td>
+                            <td>{{d.vencimientoFactura}}</td>
+                            <td>{{d.afiliado}}</td>
+                            <td>{{d.numeroAfiliado}}</td>
+                            <td>{{d.plan}}</td>
+                            <td><button class="btn btn-success btn-sm" id="btn-editar{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
                             <td><a href="{{url_for('eliminar', id=d.id)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
                         </tr>
 
@@ -68,17 +86,23 @@
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.username}}</h1>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.afiliado}}</h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                   <form action="/editar/{{d.id}}" method="post">
-                                    <label>Usuario</label>
-                                    <input type="text" class="form-control mb-3" name="username" value="{{d.username}}">
+                                    <label>Tipo</label>
+                                    <input type="text" class="form-control mb-3" name="tipo" value="{{d.tipo}}">
                                     <label>Nombre</label>
-                                    <input type="text" class="form-control mb-3" name="name" value="{{d.name}}">
-                                    <label>Clave</label>
-                                    <input type="text" class="form-control mb-3" name="password" value="{{d.password}}">
+                                    <input type="text" class="form-control mb-3" name="nombre" value="{{d.nombre}}">
+                                    <label>Vto Fact.</label>
+                                    <input type="number" class="form-control mb-3" name="vencimientoFactura" value="{{d.vencimientoFactura}}">
+                                    <label>Socio</label>
+                                    <input type="text" class="form-control mb-3" name="afiliado" value="{{d.afiliado}}">
+                                    <label>N° Afiliado</label>
+                                    <input type="number" class="form-control mb-3" name="numeroAfiliado" value="{{d.numeroAfiliado}}">
+                                    <label>Plan</label>
+                                    <input type="text" class="form-control mb-3" name="plan" value="{{d.plan}}">
                                 </div>
                                 <div class="modal-footer">
                                   <button type="submit" class="btn btn-primary">Guardar Cambios</button>

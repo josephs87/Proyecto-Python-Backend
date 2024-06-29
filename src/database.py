@@ -4,7 +4,7 @@ database = mysql.connector.connect(
     host ='localhost',
     user = 'root',
     password ='',
-    database='python_bd'
+    database='obrasocial'
 )
 
 
