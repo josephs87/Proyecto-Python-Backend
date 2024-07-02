@@ -12,48 +12,71 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 </head>
+<style>
+    body {
+        background-color: #198754;
+    }
+    .fondo{
+        background-image: url(../static/fondo.jpg);
+    }
+    .botonGuardar:hover{
+        background-color: #ffe07b;
+        color: black;
+    }
+    .botonEditar:hover{
+        background-color: #2cff9d;
+        color: black;
+    }
+    .botonEliminar:hover{
+        background-color: #fd4f60;
+        color: black;
+    }
+    .registro{
+        color: rgb(2, 88, 145);
+    }
+</style>
 
-<body>
-    <h1 class="text-center mt-5 mb-5 text-primary">Registro de Afiliados</h1>
-    <div class="container">
-        <div class="card shadow">
+<body class="fondo">
+    <div class="container mt-5">
+        <div class="card shadow tabla">
+            <h1 class="text-center mt-2 registro">Registro de Afiliados</h1>
             <div class="card-body">
                 <form action="/user" method="POST">
                     <div class="row mb-3">
-                        <div class="col">
-                            <label>Tipo</label>
-                            <input type="text" class="form-control mb-3" name="tipo">
+                        <div class="col text-center">
+                            <label class="registro"><b>Tipo</b></label>
+                            <input type="text" class="form-control mb-3 shadow" name="tipo">
+                        </div>
+                        <div class="col text-center">
+                            <label class="registro"><b>Nombre</b></label>
+                            <input type="text" class="form-control mb-3 shadow" name="nombre">
+                        </div>
+                        <div class="col text-center">
+                            <label class="registro"><b>Vto Fact.</b></label>
+                            <input type="text" class="form-control mb-3 shadow" name="vencimientoFactura">
+                        </div>
+                        <div class="col text-center">
+                            <label class="registro"><b>Socio</b></label>
+                            <input type="text" class="form-control mb-3 shadow" name="afiliado">
+                        </div>
+                        <div class="col text-center">
+                            <label class="registro"><b>N° Afiliado</b></label>
+                            <input type="text" class="form-control mb-3 shadow" name="numeroAfiliado">
+                        </div>
+                        <div class="col text-center">
+                            <label class="registro"><b>Plan</b></label>
+                            <input type="text" class="form-control mb-3 shadow" name="plan">
                         </div>
                         <div class="col">
-                            <label>Nombre</label>
-                            <input type="text" class="form-control mb-3" name="nombre">
-                        </div>
-                        <div class="col">
-                            <label>Vto Fact.</label>
-                            <input type="text" class="form-control mb-3" name="vencimientoFactura">
-                        </div>
-                        <div class="col">
-                            <label>Socio</label>
-                            <input type="text" class="form-control mb-3" name="afiliado">
-                        </div>
-                        <div class="col">
-                            <label>N° Afiliado</label>
-                            <input type="text" class="form-control mb-3" name="numeroAfiliado">
-                        </div>
-                        <div class="col">
-                            <label>Plan</label>
-                            <input type="text" class="form-control mb-3" name="plan">
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-secondary mb-3 mt-4" type="submit">Guardar</button>
+                            <button class="btn btn-warning mb-3 mt-4 botonGuardar shadow" type="submit">Guardar</button>
                         </div>
                     </div>
                 </form>
 
                 <!-- TABLA -->
 
-                <table class="table table-bordered">
-                    <thead>
+                <table class="table table-bordered shadow">
+                    <thead class="registro">
                         <th scope="col">ID</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Razón Social</th>
@@ -76,8 +99,8 @@
                             <td>{{d.afiliado}}</td>
                             <td>{{d.numeroAfiliado}}</td>
                             <td>{{d.plan}}</td>
-                            <td><button class="btn btn-success btn-sm" id="btn-editar{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
-                            <td><a href="{{url_for('eliminar', id=d.id)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                            <td><button class="btn btn-success btn-sm botonEditar shadow" id="btn-editar{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
+                            <td><a href="{{url_for('eliminar', id=d.id)}}" class="btn btn-danger btn-sm botonEliminar shadow">Eliminar</a></td>
                         </tr>
 
                         <!-- Modal -->
@@ -89,23 +112,23 @@
                                   <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.afiliado}}</h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body shadow">
                                   <form action="/editar/{{d.id}}" method="post">
-                                    <label>Tipo</label>
-                                    <input type="text" class="form-control mb-3" name="tipo" value="{{d.tipo}}">
-                                    <label>Nombre</label>
-                                    <input type="text" class="form-control mb-3" name="nombre" value="{{d.nombre}}">
-                                    <label>Vto Fact.</label>
-                                    <input type="number" class="form-control mb-3" name="vencimientoFactura" value="{{d.vencimientoFactura}}">
-                                    <label>Socio</label>
-                                    <input type="text" class="form-control mb-3" name="afiliado" value="{{d.afiliado}}">
-                                    <label>N° Afiliado</label>
-                                    <input type="number" class="form-control mb-3" name="numeroAfiliado" value="{{d.numeroAfiliado}}">
-                                    <label>Plan</label>
-                                    <input type="text" class="form-control mb-3" name="plan" value="{{d.plan}}">
+                                    <label class="registro"><b>Tipo</b></label>
+                                    <input type="text" class="form-control mb-3 shadow" name="tipo" value="{{d.tipo}}">
+                                    <label class="registro"><b>Nombre</b></label>
+                                    <input type="text" class="form-control mb-3 shadow" name="nombre" value="{{d.nombre}}">
+                                    <label class="registro"><b>Vto Fact.</b></label>
+                                    <input type="number" class="form-control mb-3 shadow" name="vencimientoFactura" value="{{d.vencimientoFactura}}">
+                                    <label class="registro"><b>Socio</b></label>
+                                    <input type="text" class="form-control mb-3 shadow" name="afiliado" value="{{d.afiliado}}">
+                                    <label class="registro"><b>N° Afiliado</b></label>
+                                    <input type="number" class="form-control mb-3 shadow" name="numeroAfiliado" value="{{d.numeroAfiliado}}">
+                                    <label class="registro"><b>Plan</b></label>
+                                    <input type="text" class="form-control mb-3 shadow" name="plan" value="{{d.plan}}">
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                  <button type="submit" class="btn btn-warning botonGuardar shadow">Guardar</button>
                                 </div>
                             </form>
                               </div>
